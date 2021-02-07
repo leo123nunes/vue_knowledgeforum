@@ -83,5 +83,14 @@ module.exports = app => {
         })
     }
 
-    return { save, get }
+    function getById(req, resp){
+        const id = req.params.id
+        return app.db.knex('users').select('*').where({id}).first().then(user => {
+            resp.status(200).send(resp.json(user))
+        }).catch(e => {
+            resp.status(500).send()
+        })
+    }
+
+    return { save, get, getById }
 }
