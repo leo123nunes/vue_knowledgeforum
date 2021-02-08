@@ -97,8 +97,7 @@ module.exports = app => {
             return resp.status(200).send(withPath(categories))
         })
         .catch(error => {
-            // return resp.status(500).send(error)
-            console.log(error)
+            return resp.status(500).send(error)
         })    
     }
 
@@ -156,6 +155,48 @@ module.exports = app => {
         return finalCategories
     }
 
+    function getThree(req, resp){
+        app
+        .db
+        .knex('categories')
+        .select('*')
+        .then(categories => {
+            return resp.status(200).send(makeThree(withPath(categories)))
+        })
+        .catch(error => {
+            return resp.status(500).send(error)
+        }) 
+    }
 
-   return { save, remove, get, getById } 
+    function sorter(a, b){
+        if(b.path < a.path){
+            return 1
+        }else if(b.path > a.path){
+            return -1
+        }else{
+            return 0
+        }
+    }
+
+    function makeThree(categories, three){
+        if(!three){
+            three = categories.filter(element => element.parentId === null).sort(sorter)
+            console.log(three)
+        }
+
+        three.map(element => {
+            element.children = (categories.filter(el => el.parentId === element.id)).sort(sorter)
+            
+            if(element.children.length > 0){
+                element.children = makeThree(categories, element.children).sort(sorter)
+            }
+
+            return element
+        })
+
+        return three
+    }
+
+
+   return { save, remove, get, getById, getThree } 
 }
