@@ -5,7 +5,7 @@ exports.up = function(knex) {
         table.string('name').notNull()
         table.string('description', 1000).notNull()
         table.string('imageUrl')
-        table.boolean('content').notNull()
+        table.binary('content').notNull()
         table.integer('userId').references('id').inTable('users').notNull()
         table.integer('categoryId').references('id').inTable('categories').notNull()
     })
