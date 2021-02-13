@@ -1,3 +1,5 @@
+const query = require('./query.js')
+
 module.exports = app => {
     async function save(req, resp){
         const existsOrError = app.api.validation.existsOrError
@@ -76,8 +78,9 @@ module.exports = app => {
         })
     }
 
+    const limit = 10
+
     async function get(req, resp){
-        const limit = 10
 
         var paginator = req.query.id || 1
 
@@ -98,5 +101,29 @@ module.exports = app => {
         })
     }
 
-    return { save, getById, remove, get}
+    async function getWithChildren(req, resp){
+        var categoryId = req.params.id
+        const page = req.query.page || 1
+        console.log(categoryId)
+        var ids = await app.db.knex.raw(query.getChildrenId, categoryId)
+        ids = ids.rows.map(element => element.id)
+        consnole.log(ids)
+
+        app
+        .db
+        .knex({a: "articles", u:"users"})
+        .select('a.id', 'a.name', 'a.description', 'a.imageUrl', {author: 'u.name'})
+        .whereRaw('?? = ??', ['a.userId', 'u.id'])
+        .whereIn('categoryId', ids)
+        .limit(limit).offset(page*limit - limit)
+        .orderBy('a.id', 'desc')
+        .then(result => {
+            return resp.status(200).send(result)
+        })
+        .catch(error => {
+            return resp.status(500).send(error)
+        })
+    }
+
+    return { save, getById, remove, get, getWithChildren}
 }
