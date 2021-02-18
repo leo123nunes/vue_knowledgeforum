@@ -27,6 +27,7 @@ module.exports = app => {
             email: user.email,
             password: user.password,
             id: user.id,
+            admin: user.admin,
             iat: now,
             exp: now + 1000 * 60 * 60 * 24 * 3
         }
