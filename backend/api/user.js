@@ -32,7 +32,6 @@ module.exports = app => {
             }
             
         }catch(msg){
-            console.log('dentro do catch')
             return resp.status(400).send(msg)
         }
 
@@ -68,8 +67,6 @@ module.exports = app => {
     }
 
     function get(req, resp){
-
-        console.log('test')
 
         return app
         .db
