@@ -2,6 +2,10 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
 
+    const existsOrError = app.api.validation.existsOrError
+    const notExistsOrError = app.api.validation.notExistsOrError
+    const equalsOrError = app.api.validation.equalsOrError
+
     function decrypt(password){
         const salt = bcrypt.genSaltSync(10)
         return bcrypt.hashSync(password, salt)
@@ -14,10 +18,6 @@ module.exports = app => {
         if(req.params.id){
             user.id = req.params.id
         } 
-
-        const existsOrError = app.api.validation.existsOrError
-        const notExistsOrError = app.api.validation.notExistsOrError
-        const equalsOrError = app.api.validation.equalsOrError
 
         try{
             existsOrError(user.name, "Invalid name.")
@@ -43,6 +43,7 @@ module.exports = app => {
             .db
             .knex('users')
             .where({id: user.id})
+            .whereNull('deletedAt')
             .update({...user})
             .then(user => {
                 resp.status(204).send()
@@ -72,6 +73,7 @@ module.exports = app => {
         .db
         .knex('users')
         .select('*')
+        .whereNull('deletedAt')
         .then(users => {
             resp.send(resp.json(users))
         })
@@ -82,12 +84,37 @@ module.exports = app => {
 
     function getById(req, resp){
         const id = req.params.id
-        return app.db.knex('users').select('*').where({id}).first().then(user => {
+        return app.db.knex('users').select('*').where({id}).whereNull('deletedAt').first().then(user => {
             resp.status(200).send(resp.json(user))
         }).catch(e => {
             resp.status(500).send()
         })
     }
 
-    return { save, get, getById }
+    async function remove(req, resp){
+        try{
+
+            var articles = 
+            await app
+            .db
+            .knex('articles')
+            .where({userId: req.params.id})
+
+            notExistsOrError(articles, "Can not remove because this user have articles.")
+
+            var rows = 
+            await app
+            .db
+            .knex('users')
+            .update({deletedAt: new Date()})
+            .where({id: req.params.id})
+            existsOrError(rows, 'This user not exists.')
+
+            return resp.status(204).send()
+        }catch(e){
+            return resp.status(400).send(e)
+        }
+    }
+
+    return { save, get, getById, remove }
 }
