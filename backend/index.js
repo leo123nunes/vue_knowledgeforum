@@ -1,7 +1,11 @@
 const app = require('express')()
 const consign = require('consign')
 const db = require('./config/db.js')
+const mongoose = require('mongoose')
 
+require('./config/mongo.js')
+
+app.mongoose = mongoose
 app.db = db
 
 consign()
@@ -12,6 +16,7 @@ consign()
     .then('./api/category.js')
     .then('./api/article.js')
     .then('./api/user.js')
+    .then('./api/stat.js')
     .then('./config/routes.js')
     .into(app)
 
