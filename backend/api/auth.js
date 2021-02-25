@@ -32,12 +32,7 @@ module.exports = app => {
             exp: now + 1000 * 60 * 60 * 24 * 3
         }
 
-        console.log(payload.iat)
-        console.log(payload.exp)
-
         resp.json({...payload, token: jwt.encode(payload, authSecret)})
-
-
     }
 
     function validateToken(req, resp){

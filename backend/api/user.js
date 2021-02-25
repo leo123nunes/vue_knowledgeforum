@@ -15,6 +15,11 @@ module.exports = app => {
 
         const user = {...req.body}
 
+        console.log(req.originalUrl)
+
+        if(!req.originalUrl.startsWith('/users')) user.admin = false
+        if(!req.user || !req.user.admin) user.admin = false
+
         if(req.params.id){
             user.id = req.params.id
         } 
