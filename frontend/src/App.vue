@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<Header></Header>
+		<Header title="Knowledge Forum" :hideToggle="false"></Header>
 		<Menu></Menu>
 		<Content></Content>
 		<Footer></Footer>
