@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <a class="toggle" v-if="!hideToggle" @click="toggleMenu">
-            <i class="fa fa-caret-left"></i>
+            <i :class="icon"></i>
         </a>
 
         <a class="title">
@@ -11,6 +11,9 @@
 </template>
 
 <script>
+
+import { mapMutations} from 'vuex'
+
 export default {
     name: "Header",
     props: {
@@ -19,13 +22,15 @@ export default {
     },
     computed: {
         icon(){
-            return "fa fa-caret-down"
+            return this.$store.state.isMenuVisible ? "fa fa-caret-left" : "fa fa-caret-down"
         }
     },
     methods: {
         toggleMenu(){
-
+            this.$store.commit('toggleMenu')
         }
+        
+        
     }
 }
 </script>
