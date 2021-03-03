@@ -4,21 +4,24 @@
             <i :class="icon"></i>
         </a>
 
-        <a class="title">
+        <h1 class="title">
             {{ title }}
-        </a>
+        </h1>
+        <UserDropdown v-if="!hideUserDropdown"/>
     </header>
 </template>
 
 <script>
 
-import { mapMutations} from 'vuex'
+import UserDropdown from './UserDropdown'
 
 export default {
     name: "Header",
+    components: { UserDropdown },
     props: {
         title: String,
-        hideToggle: Boolean
+        hideToggle: Boolean,
+        hideUserDropdown: Boolean
     },
     computed: {
         icon(){
@@ -37,11 +40,16 @@ export default {
 
 <style>
     .header{
-        background: linear-gradient(to right, rgb(56, 81, 143), rgb(152, 191, 235));
+        background: linear-gradient(to right, #263a6b, rgb(124, 173, 230));
         grid-area: header;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    a.title:hover{
+        color: #fff;
+        text-decoration: none;
     }
 
     .title{
@@ -49,6 +57,7 @@ export default {
         font-weight: 100;
         text-decoration: none;
         flex-grow: 1;
+        margin: 0px;
         font-size: 1em;
         display: flex;
         justify-content: center;
@@ -65,5 +74,6 @@ export default {
 
     header.header > a.toggle:hover{
         background-color: rgba(0, 0, 0, 0.322);
+        text-decoration: none;
     }
 </style>

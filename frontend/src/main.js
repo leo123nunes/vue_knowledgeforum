@@ -3,6 +3,7 @@ import Vue from 'vue'
 
 import App from './App'
 import store from './config/store.js'
+import './config/bootstrap.js'
 
 Vue.config.productionTip = false
 
