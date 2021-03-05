@@ -1,5 +1,7 @@
 <template>
-    <div class="content"></div>
+    <div class="content">
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
@@ -12,8 +14,5 @@ export default {
     .content{
         background: rgb(235, 234, 234);
         grid-area: content;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 </style>
