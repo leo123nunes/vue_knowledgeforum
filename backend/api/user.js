@@ -13,9 +13,9 @@ module.exports = app => {
 
     async function save(req, resp){
 
-        const user = {...req.body}
+        console.log(req.body)
 
-        console.log(req.originalUrl)
+        const user = {...req.body}
 
         if(!req.originalUrl.startsWith('/users')) user.admin = false
         if(!req.user || !req.user.admin) user.admin = false
@@ -77,7 +77,7 @@ module.exports = app => {
         return app
         .db
         .knex('users')
-        .select('*')
+        .select('id', 'name', 'email', 'admin')
         .whereNull('deletedAt')
         .then(users => {
             resp.send(resp.json(users))
