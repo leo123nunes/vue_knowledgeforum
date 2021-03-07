@@ -10,26 +10,33 @@ module.exports = app => {
             category.id = req.params.id
         }
 
+        console.log(category)
+
         existsOrError(category.name, "Category doesn't have name.")
 
         if(category.id){
-            app
+            console.log(category)
+            return app
             .db
             .knex('categories')
-            .update(category)
             .where({id: category.id})
+            .update({
+                id: category.id,
+                name: category.name,
+                parentId: category.parentId
+            })
             .then(category => {
-                return resp.status(204).send()
+                resp.status(204).send()
             })
             .catch(error => {
-                return resp.status(500).send(error)
+                resp.status(500).send(error)
             })
         }else{
             app
             .db
             .knex('categories')
             .insert(category)
-            .then(category => {
+            .then(_ => {
                 return resp.status(204).send()
             })
             .catch(error => {
@@ -152,6 +159,18 @@ module.exports = app => {
 
         })
 
+        var length = finalCategories.length
+
+        for(let x = 0; x < length; x++){
+            for(let y = 0; y < length; y++){
+                if(finalCategories[x].path < finalCategories[y].path){
+                    var aux = finalCategories[x]
+                    finalCategories[x] = finalCategories[y]
+                    finalCategories[y] = aux
+                }
+            }
+        }
+
         return finalCategories
     }
 
@@ -196,7 +215,6 @@ module.exports = app => {
 
         return three
     }
-
 
    return { save, remove, get, getById, getThree } 
 }

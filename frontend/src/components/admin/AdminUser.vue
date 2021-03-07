@@ -80,17 +80,17 @@ export default {
             axios.get(url).then(resp => {
                 this.users = resp.data
             })
+            .catch(showError)
         },
         save(){
             const url = this.user.id ? `${baseApiUrl}/users/${this.user.id}` : `${baseApiUrl}/users`
-
-            // const method = this.user.id ? 'put' : 'post'
 
             const method = 'post'
 
             axios[method](url, this.user).then(_ => {
                 this.$toasted.global.defaultSuccess()
                 this.reset()
+                this.loadUsers()
             })
             .catch(showError)
         },
