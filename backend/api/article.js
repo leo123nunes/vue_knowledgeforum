@@ -66,7 +66,9 @@ module.exports = app => {
         .db
         .knex('articles')
         .where({id: req.params.id})
+        .first()
         .then(article => {
+            article = { ...article, content: article.content.toString()}
             return resp.status(200).send(article)
         })
         .catch(error => {
@@ -74,7 +76,7 @@ module.exports = app => {
         })
     }
 
-    const limit = 2
+    const limit = 10
 
     async function get(req, resp){
 
@@ -105,10 +107,8 @@ module.exports = app => {
     async function getWithChildren(req, resp){
         var categoryId = req.params.id
         const page = req.query.page || 1
-        console.log(categoryId)
         var ids = await app.db.knex.raw(query.getChildrenId, categoryId)
         ids = ids.rows.map(element => element.id)
-        consnole.log(ids)
 
         app
         .db
