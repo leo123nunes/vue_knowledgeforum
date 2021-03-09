@@ -1,13 +1,12 @@
 const query = require('./query.js')
 
 module.exports = app => {
-    async function save(req, resp){
         const existsOrError = app.api.validation.existsOrError
         const notExistsOrError = app.api.validation.notExistsOrError
 
-        var article = {...req.body}
+    async function save(req, resp){
 
-        console.log(article)
+        var article = {...req.body}
 
         if(req.params.id){
             article.id = req.params.id 
@@ -23,10 +22,6 @@ module.exports = app => {
         }catch(msg){
             return resp.status(400).send(msg)
         }
-
-        // article.content = article.content.toString()
-
-        console.log(article)
 
 
         if(!req.params.id){
@@ -60,6 +55,7 @@ module.exports = app => {
     
         try{
             existsOrError(deletedRows, "Article not found.")
+            return resp.status(200).send()
         }catch(msg){
             return resp.status(400).send(msg)
         }
@@ -78,11 +74,11 @@ module.exports = app => {
         })
     }
 
-    const limit = 10
+    const limit = 2
 
     async function get(req, resp){
 
-        var paginator = req.query.id || 1
+        var paginator = req.query.page || 1
 
         var count = await app.db.knex('articles').count('id').first()
 
@@ -91,10 +87,15 @@ module.exports = app => {
         app
         .db
         .knex('articles')
-        .select('id', 'name', 'description')
+        .select('id', 'name', 'description', 'userId', 'categoryId', 'content')
         .offset(paginator*limit - limit)
-        .then(article => {
-            return resp.status(200).send({data: article, count, limit})
+        .limit(limit)
+        .orderBy('name')
+        .then(articles => {
+            articles = articles.map(article => {
+                return { ...article, content: article.content.toString()}
+            })
+            return resp.status(200).send({data: articles, count, limit})
         })
         .catch(error => {
             return resp.status(500).status(error)

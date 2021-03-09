@@ -10,9 +10,12 @@ module.exports = app => {
             category.id = req.params.id
         }
 
-        console.log(category)
+        try{
+            existsOrError(category.name, "Category doesn't have name.")
+        }catch(msg){
+            return resp.status(400).send(msg)
+        }
 
-        existsOrError(category.name, "Category doesn't have name.")
 
         if(category.id){
             console.log(category)

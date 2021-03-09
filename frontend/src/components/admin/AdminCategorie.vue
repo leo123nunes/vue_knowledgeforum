@@ -23,7 +23,7 @@
         </form>
 
         <b-row class="pl-3">
-            <b-button @click="save()" v-show="mode == 'save'" variant="primary" class="mr-2">Save</b-button>
+            <b-button v-on:click="save" v-show="mode == 'save'" variant="primary" class="mr-2">Save</b-button>
             <b-button @click="remove" v-show="mode == 'delete'" variant="danger" class="mr-2">Delete</b-button>
             <b-button @click="reset()">Cancel</b-button>    
         </b-row>
@@ -76,18 +76,14 @@ export default {
         save(){
             const url = this.category.id ? `${baseApiUrl}/categories/${this.category.id}` : `${baseApiUrl}/categories`
 
-            const method = 'post'
-
-            console.log(url)
-
             axios.post(url, this.category).then(_ => {
                 this.$toasted.global.defaultSuccess()
                 this.reset()
                 this.loadCategories()
             })
             .catch(error => {
+                console.log('error')
                 showError(error)
-                console.log(error)
             })
 
         },
