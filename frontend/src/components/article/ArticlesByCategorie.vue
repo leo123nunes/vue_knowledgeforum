@@ -4,7 +4,7 @@
 
         <ul class="articles-list">
             <li v-for="article in articles" :key="article.id">
-                {{ article.name }}
+                <ArticleItem :article="article"></ArticleItem>
             </li>
         </ul>
 
@@ -18,10 +18,11 @@
 import axios from 'axios'
 import { baseApiUrl, showError } from '@/global'
 import PageTitle from '@/components/template/PageTitle.vue'
+import ArticleItem from '@/components/article/ArticleItem.vue'
 
 export default {
     name: "ArticlesByCategory",
-    components: { PageTitle },
+    components: { PageTitle, ArticleItem },
     data: function(){
         return {
             category: {},
@@ -71,7 +72,8 @@ export default {
     }
 
     .area-button-show-more .button-show-more{
-        margin-top: 20px;
+        margin-top: 0px;
+        margin-bottom: 20px;
     }
 
     .articles-by-category .articles-list{
@@ -79,4 +81,5 @@ export default {
         padding-left: 0px;
         margin: 10px;
     }
+    
 </style>
