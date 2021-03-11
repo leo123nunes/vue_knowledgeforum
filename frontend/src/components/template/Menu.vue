@@ -1,12 +1,46 @@
 <template>
-    <aside class="menu" v-show="isMenuVisible"></aside>
+    <aside class="menu" v-show="isMenuVisible">
+        <div class="search-area">
+            <i class="fa fa-search"></i>
+            <input v-model="treeFilter" class="tree-filter-input" placeholder="Search"/>
+        </div>
+        <LiquorTree :filter="treeFilter" class="categorie-tree" :data="tree" :options="treeOptions" />
+    </aside>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import LiquorTree from 'liquor-tree'
+import { baseApiUrl } from '@/global'
+import axios from 'axios'
+
 export default {
     name: "Menu",
-    computed: mapState(['isMenuVisible'])
+    computed: mapState(['isMenuVisible']),
+    components: { LiquorTree },
+    data: function(){
+        return {
+            treeFilter: '',
+            tree: this.getTree(),
+            test: [
+                { text: "one"},
+                { text: "two"},
+                { text: "three"}
+            ],
+            treeOptions: {
+                propertyNames: { 'text': 'name'},
+                filter: {
+                    emptyText: "Nothing found."
+                }
+            }
+        }
+    },
+    methods: {
+        getTree(){
+            const url = `${baseApiUrl}/categories/three`
+            return axios.get(url).then(resp => resp.data)
+        }
+    }
 }
 </script>
 
@@ -18,5 +52,71 @@ export default {
         flex-wrap: wrap;
         align-items: center;
         grid-area: menu;
+        overflow: hidden;
     }
+
+    .menu > .search-area > i{
+        color: #fff;
+        padding-right: 10px;
+    }
+
+    .search-area{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 2px solid rgba(156, 156, 156, 0.315);
+    }
+
+    .tree-filter-input{
+        background-color: transparent;
+        max-width: fit-content;
+        color: #fff;
+        border: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content:center;
+    }
+
+    .categorie-tree{
+        margin-top: 10px;
+        width: 100%;
+        /* height: 400px; */
+    }
+
+    .tree-content .tree-anchor{
+        color: #fff;
+        background-color: transparent;
+    }
+
+    .tree-arrow.has-child{
+        filter: brightness(2);
+        
+    }
+
+    .tree-node.selected > .tree-content{
+        background-color: rgba(255, 255, 255, 0.267);
+    }
+
+    .tree-root > .tree-node > .tree-content:hover{
+        background-color: rgba(255, 255, 255, 0.267);
+    }
+
+    .tree-root > .tree-node > .tree-content > a:hover,
+    .tree-children > .tree-node > .tree-content > a:hover{
+        text-decoration: none;
+    }
+
+    .tree-children > .tree-node > .tree-content:hover{
+        background-color: rgba(255, 255, 255, 0.267);
+    }
+
+    .categorie-tree > .tree-filter-empty{
+        display: flex;
+        justify-content: center;
+        color: rgba(0, 0, 0, 0.815);
+    }
+
 </style>
