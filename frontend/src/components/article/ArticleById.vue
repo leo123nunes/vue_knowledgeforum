@@ -24,11 +24,8 @@ export default {
     mounted(){
         const url = `${baseApiUrl}/articles/${this.$route.params.id}`
 
-        console.log(url)
-
         axios.get(url).then(resp => {
             this.article = resp.data
-            console.log(this.article)
         })
     }    
 }

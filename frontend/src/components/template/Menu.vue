@@ -4,7 +4,7 @@
             <i class="fa fa-search"></i>
             <input v-model="treeFilter" class="tree-filter-input" placeholder="Search"/>
         </div>
-        <LiquorTree :filter="treeFilter" class="categorie-tree" :data="tree" :options="treeOptions" />
+        <LiquorTree ref="tree" :filter="treeFilter" class="categorie-tree" :data="tree" :options="treeOptions" />
     </aside>
 </template>
 
@@ -39,7 +39,16 @@ export default {
         getTree(){
             const url = `${baseApiUrl}/categories/three`
             return axios.get(url).then(resp => resp.data)
+        },
+        onNodeSelection(node){
+            this.$router.push({
+                name: "ArticlesByCategory",
+                params: {id: node.id}
+            })
         }
+    },
+    mounted(){
+        this.$refs.tree.$on('node:selected', this.onNodeSelection)
     }
 }
 </script>
