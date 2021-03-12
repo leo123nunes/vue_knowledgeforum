@@ -9,25 +9,36 @@
             <i class="fa fa-angle-down" alt="user"></i>
         </div>
         <div class="user-dropdown-content">
-            <router-link to="/admin">
+            <a href @click.prevent="loadAdminPages">
                 <i class="fa fa-cogs"></i>Administration
-            </router-link>
-            <router-link to="/admin">
+            </a>
+            <a href @click.prevent="logout" to="/auth">
                 <i class="fa fa-sign-out"></i>Sign out
-            </router-link>
+            </a>
         </div>
     </div>
 </template>
 
 <script>
 
+import { userKey } from '@/global'
 import { mapState } from 'vuex'
 import Gravatar from 'vue-gravatar'
 
 export default {
     name: "UserDropdown",
     components: { Gravatar },
-    computed: mapState(['user'])
+    computed: mapState(['user']),
+    methods: {
+        logout(){
+            localStorage.removeItem(userKey)
+            this.$store.commit('setUser', null)
+            this.$router.push({ path: "/auth"})
+        },
+        loadAdminPages(){
+            this.$router.push({ path: '/admin'})
+        }
+    }
 }
 </script>
 
