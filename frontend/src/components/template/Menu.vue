@@ -1,5 +1,5 @@
 <template>
-    <aside class="menu" v-show="isMenuVisible">
+    <aside class="menu" v-show="isMenuVisible || !user">
         <div class="search-area">
             <i class="fa fa-search"></i>
             <input v-model="treeFilter" class="tree-filter-input" placeholder="Search"/>
@@ -16,7 +16,7 @@ import axios from 'axios'
 
 export default {
     name: "Menu",
-    computed: mapState(['isMenuVisible']),
+    computed: mapState(['isMenuVisible', 'user']),
     components: { LiquorTree },
     data: function(){
         return {

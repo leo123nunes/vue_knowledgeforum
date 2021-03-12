@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <router-view></router-view>
+        <router-view class="content-area"></router-view>
     </div>
 </template>
 
@@ -14,5 +14,9 @@ export default {
     .content{
         background: rgb(235, 234, 234);
         grid-area: content;
+    }
+
+    .content-area{
+        width: 100%;
     }
 </style>

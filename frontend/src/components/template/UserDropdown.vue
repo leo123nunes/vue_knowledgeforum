@@ -25,7 +25,7 @@ import { mapState } from 'vuex'
 import Gravatar from 'vue-gravatar'
 
 export default {
-    name: "UserToolbar",
+    name: "UserDropdown",
     components: { Gravatar },
     computed: mapState(['user'])
 }

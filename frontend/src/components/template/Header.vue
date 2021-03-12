@@ -15,6 +15,7 @@
 
 import UserDropdown from './UserDropdown'
 
+
 export default {
     name: "Header",
     components: { UserDropdown },
@@ -31,9 +32,7 @@ export default {
     methods: {
         toggleMenu(){
             this.$store.commit('toggleMenu')
-        }
-        
-        
+        } 
     }
 }
 </script>

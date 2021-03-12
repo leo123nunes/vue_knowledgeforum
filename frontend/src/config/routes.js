@@ -7,6 +7,7 @@ import Home from '../components/home/Home'
 import AdminPages from '../components/admin/AdminPages'
 import ArticlesByCategory from '../components/article/ArticlesByCategorie.vue'
 import ArticleById from '../components/article/ArticleById.vue'
+import AuthScreen from '../components/auth/Auth.vue'
 
 const routes = [
     {
@@ -28,6 +29,11 @@ const routes = [
         name: "ArticleById",
         path: "/article/:id",
         component: ArticleById
+    },
+    {
+        name: "Auth",
+        path: "/auth",
+        component: AuthScreen
     }
 ]
 
