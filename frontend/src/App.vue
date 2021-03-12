@@ -48,7 +48,6 @@ export default {
 
 			if(validate){
 				this.$store.commit('setUser', userData)
-				this.$router.push({ path: '/'})
 			}else{
 				localStorage.removeItem(userKey)
 				this.$routes.push({ path: '/auth'})

@@ -18,7 +18,6 @@ module.exports = app => {
 
 
         if(category.id){
-            console.log(category)
             return app
             .db
             .knex('categories')
@@ -203,7 +202,6 @@ module.exports = app => {
     function makeThree(categories, three){
         if(!three){
             three = categories.filter(element => element.parentId === null).sort(sorter)
-            console.log(three)
         }
 
         three.map(element => {

@@ -9,7 +9,7 @@
             <i class="fa fa-angle-down" alt="user"></i>
         </div>
         <div class="user-dropdown-content">
-            <a href @click.prevent="loadAdminPages">
+            <a href @click.prevent="loadAdminPages" v-if="user.admin">
                 <i class="fa fa-cogs"></i>Administration
             </a>
             <a href @click.prevent="logout" to="/auth">

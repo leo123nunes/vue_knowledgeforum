@@ -30,7 +30,7 @@ import AdminUser from './AdminUser'
 
 export default {
     name: "AdminPages",
-    components: { PageTitle, AdminArticle, AdminCategorie, AdminUser}
+    components: { PageTitle, AdminArticle, AdminCategorie, AdminUser},
 }
 </script>
 
