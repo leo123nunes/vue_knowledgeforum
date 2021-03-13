@@ -1,7 +1,7 @@
 <template>
     <div class="article-item">
         <router-link :to="{name: 'ArticleById', params: {id: article.id}}" class="article-link">
-            <div class="article-img">
+            <div v-if="this.$mq != 'sm'" class="article-img">
                 <img v-if="article.imageUrl" :src="article.imageUrl" alt="Article"/>
                 <img v-else src="@/assets/article.png" alt="Article"/>
             </div>

@@ -48,6 +48,10 @@ export default {
 
 			if(validate){
 				this.$store.commit('setUser', userData)
+
+				if(this.$mq == 'sm'){
+					this.$store.commit('toggleMenu', false)
+				}
 			}else{
 				localStorage.removeItem(userKey)
 				this.$router.push({ path: '/auth'})

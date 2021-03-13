@@ -1,6 +1,6 @@
 <template>
     <div class="stats">
-        <i :class="icon" :style="style()"></i>
+        <i v-if="this.$mq == 'lg'" :class="icon" :style="style()"></i>
 
         <div class="stats-info">
             <span class="stats-title">{{ title }}</span>

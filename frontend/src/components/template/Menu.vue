@@ -1,11 +1,11 @@
 <template>
-    <aside class="menu" v-show="isMenuVisible || !user">
+    <div class="menu" v-show="isMenuVisible || !user">
         <div class="search-area">
             <i class="fa fa-search"></i>
             <input v-model="treeFilter" class="tree-filter-input" placeholder="Search"/>
         </div>
         <LiquorTree ref="tree" :filter="treeFilter" class="categorie-tree" :data="tree" :options="treeOptions" />
-    </aside>
+    </div>
 </template>
 
 <script>
@@ -45,6 +45,10 @@ export default {
                 name: "ArticlesByCategory",
                 params: {id: node.id}
             })
+
+            if(this.$mq == 'sm'){
+                this.$store.commit('toggleMenu', false)
+            }
         }
     },
     mounted(){
@@ -58,10 +62,9 @@ export default {
         background: linear-gradient(to right, rgb(36, 36, 36), rgb(88, 88, 88));
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
         align-items: center;
         grid-area: menu;
-        overflow: hidden;
     }
 
     .menu > .search-area > i{
@@ -92,7 +95,6 @@ export default {
     .categorie-tree{
         margin-top: 10px;
         width: 100%;
-        /* height: 400px; */
     }
 
     .tree-content .tree-anchor{
