@@ -3,20 +3,20 @@ const jwt = require('jwt-simple')
 const authSecret = require('../.env').authSecret
 
 module.exports = app => {
-    async function signin(req, resp){
-        if(!req.body.email || !req.body.password){
+    async function signin(req, resp) {
+        if (!req.body.email || !req.body.password) {
             return resp.status(400).send('Enter the email and password.')
         }
 
-        var user = await app.db.knex('users').where({email: req.body.email}).first()
+        var user = await app.db.knex('users').where({ email: req.body.email }).first()
 
-        if(!user){
+        if (!user) {
             return resp.status(400).send('User not found.')
         }
 
         var password = bcrypt.compareSync(req.body.password, user.password)
 
-        if(!password){
+        if (!password) {
             return resp.status(400).send('Invalid password.')
         }
 
@@ -32,22 +32,22 @@ module.exports = app => {
             exp: now + 1000 * 60 * 60 * 24 * 3
         }
 
-        resp.json({...payload, token: jwt.encode(payload, authSecret)})
+        resp.json({ ...payload, token: jwt.encode(payload, authSecret) })
     }
 
-    function validateToken(req, resp){
-        try{
+    function validateToken(req, resp) {
+        try {
             var userData = req.body || null
 
-            if(userData){
+            if (userData) {
 
                 var token = jwt.decode(userData.token, authSecret)
 
-                if(new Date(token.exp * 1000) > new Date()){
+                if (new Date(token.exp * 1000) > new Date()) {
                     return resp.send(true)
                 }
             }
-        }catch(e){
+        } catch (e) {
 
         }
 
@@ -56,3 +56,4 @@ module.exports = app => {
 
     return { signin, validateToken }
 }
+
