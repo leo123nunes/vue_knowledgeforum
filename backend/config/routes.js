@@ -29,7 +29,7 @@ module.exports = app => {
     app.route('/categories/:id')
         .all(app.config.passport.authenticate())
         .post(admin(app.api.category.save))
-        .get(admin(app.api.category.getById))
+        .get(app.api.category.getById)
         .delete(admin(app.api.category.remove))
 
     app.route('/articles')
@@ -40,7 +40,7 @@ module.exports = app => {
     app.route('/articles/:id')
         .all(app.config.passport.authenticate())
         .post(admin(app.api.article.save))
-        .get(admin(app.api.article.getById))
+        .get(app.api.article.getById)
         .delete(admin(app.api.article.remove))
 
     app.route('/categories/:id/articles')

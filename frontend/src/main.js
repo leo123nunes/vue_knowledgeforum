@@ -3,6 +3,7 @@ import Vue from 'vue'
 
 import App from './App'
 import store from './config/store.js'
+import './config/axios.js'
 import './config/msgs.js'
 import './config/bootstrap.js'
 import router from './config/routes'
