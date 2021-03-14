@@ -1,4 +1,4 @@
-# knowledgeforum-vue
+# Knowledge Forum
 A knowledge forum made to register users, categories and articles.
 
 # Programming languages
