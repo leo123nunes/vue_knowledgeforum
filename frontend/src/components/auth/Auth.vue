@@ -71,6 +71,10 @@ export default {
         color: #fff;
     }
 
+    .text-area >a:hover{
+        background-color: rgba(255, 255, 255, 0.109);
+    }
+
     .content{
         display: flex;
         flex-direction: row;
