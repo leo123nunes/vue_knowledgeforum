@@ -2,7 +2,7 @@
 A knowledge forum made to register users, categories and articles.
 
 # Programming languages
-Javascript, HTML and CSS
+Javascript, HTML and CSS.
 
 # Framework
 Vue js.
