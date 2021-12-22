@@ -1,19 +1,19 @@
 # Knowledge Forum
 A knowledge forum made to register users, categories and articles.
 
-# Programming languages
+## Code languages
 Javascript, HTML and CSS.
 
-# Framework
+## Framework
 Vue js.
 
-# Database
+## Database
 Postgres and mongodb.
 
-# IDE
+## IDE
 Visual Studio Code Version 1.44.2
 
-# Screenshots
+## Screenshots
 
 ![userdropdown](https://user-images.githubusercontent.com/53942734/143719527-a9330345-0049-40e6-acbf-2af80bb24ed3.png)<br></br>
 ![adminpages_article](https://user-images.githubusercontent.com/53942734/143719528-ca1a5096-ca2c-4d63-9271-386f14756159.png)<br></br>
@@ -28,6 +28,15 @@ Visual Studio Code Version 1.44.2
 ![signin](https://user-images.githubusercontent.com/53942734/143719548-0021fd36-0350-4c9b-9c8b-f86defc99de9.png)<br></br>
 ![signup](https://user-images.githubusercontent.com/53942734/143719549-1174cf56-c30a-406d-a104-663f720b1a02.png)<br></br>
 ![toggledmenu](https://user-images.githubusercontent.com/53942734/143719550-792a36f8-05a2-45b4-9cb9-e87ea3134622.png)<br></br>
+
+## Author
+
+👤 **Leonardo Nunes de Oliveira**
+
+* Github: https://github.com/leo123nunes
+* LinkedIn: https://www.linkedin.com/in/leonunesoliveira/
+* Instagram: https://www.instagram.com/leo.nunesoliveira/
+* Facebook: https://www.facebook.com/leonardonunes.oliveira.1/
 
 
 
